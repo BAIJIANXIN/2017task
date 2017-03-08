@@ -25,13 +25,32 @@ var aqiData = [
 ];
 //(括号包裹函数表示即使运行，当网页打开时，这个函数就开始计算)
 (function () {
-
-  /*
-  在注释下方编写代码
-  遍历读取aqiData中各个城市的数据
-  将空气质量指数大于60的城市显示到aqi-list的列表中
-  */
-
+  //使用filter()遍历大于60的城市
+  /*function standard(value){
+      return value[1] >= 60;
+  }
+  for (var i = 0; i < aqiData.length; i++) {
+    var data = aqiData.filter(standard(value));
+  }*/
+  //第二种找出大于60的城市方法
+  var aqilist = new Array()
+  for (var i = 0; i < aqiData.length; i++) {
+    if(aqiData[i][1]>=60)
+      aqilist.push(aqiData[i])
+  }
+  //使用sort()和compare函数进行比大小和排序
+  function compare(a,b){
+    return b[1] - a[1];
+  }
+  aqilist.sort(compare);
+  //在使用map将排序好的数组添加上相应的文字名次顺序
+  //使用forEach()将数组元素遍历添加到<ul>的innerHTML中
+  var chine = ["一","二","三","四,"];
+  var l = "";
+  for (var i = 0; i < aqilist.length; i++) {
+    l += "<li>第"+chine[i]+"名"+aqilist[i]+"</li>";
+  }
+  document.getElementById('aqi-list').innerHTML=l;
 })();
 
 </script>
